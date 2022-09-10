@@ -1,52 +1,16 @@
-import Image from 'next/future/image'
-import Head from 'next/head'
+import Image from "next/future/image";
+import Head from "next/head";
 
-import { Card } from '../components/Card'
-import { SimpleLayout } from '../components/SimpleLayout'
-import logoAnimaginary from '../images/logos/animaginary.svg'
-import logoCosmos from '../images/logos/cosmos.svg'
-import logoHelioStream from '../images/logos/helio-stream.svg'
-import logoOpenShuttle from '../images/logos/open-shuttle.svg'
-import logoPlanetaria from '../images/logos/planetaria.svg'
-import Link from 'next/link'
-import axios from 'axios'
-const projects = [
-  {
-    name: 'Planetaria',
-    description:
-      'Creating technology to empower civilians to explore space on their own terms.',
-    link: { href: 'http://planetaria.tech', label: 'planetaria.tech' },
-    logo: logoPlanetaria,
-  },
-  {
-    name: 'Animaginary',
-    description:
-      'High performance web animation library, hand-written in optimized WASM.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoAnimaginary,
-  },
-  {
-    name: 'HelioStream',
-    description:
-      'Real-time video streaming library, optimized for interstellar transmission.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoHelioStream,
-  },
-  {
-    name: 'cosmOS',
-    description:
-      'The operating system that powers our Planetaria space shuttles.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoCosmos,
-  },
-  {
-    name: 'OpenShuttle',
-    description:
-      'The schematics for the first rocket I designed that successfully made it to orbit.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoOpenShuttle,
-  },
-]
+import { Card } from "../components/Card";
+import { SimpleLayout } from "../components/SimpleLayout";
+import logoAnimaginary from "../images/logos/animaginary.svg";
+import logoCosmos from "../images/logos/cosmos.svg";
+import logoHelioStream from "../images/logos/helio-stream.svg";
+import logoOpenShuttle from "../images/logos/open-shuttle.svg";
+import logoPlanetaria from "../images/logos/planetaria.svg";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function LinkIcon(props) {
   return (
@@ -56,21 +20,25 @@ function LinkIcon(props) {
         fill="currentColor"
       />
     </svg>
-  )
+  );
 }
 
 export default function Projects() {
-    // const [data,setData] = useState()
+  const [projects, setProjects] = useState();
 
-    // useEffect(() => {
-    //     const fetch = async() => {
-    //         const response = await axios(get , url ..)
-    //         setData(response)
-    //     }
-    //     fetch()
-    // })
-    //Criar funcao que vai puxar os dados
-    // Fetch data no useEffect e save in state varias
+  // pegar cursos
+
+  useEffect(() => {
+    fetch("https://ubo-dapp-api.herokuapp.com/api/courses/")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setProjects(data);
+      });
+  }, []);
+
   return (
     <>
       <Head>
@@ -89,32 +57,32 @@ export default function Projects() {
           className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
         >
           {projects.map((project) => (
-            <Link href={`/`} passHref={true} key={project.name}>
+            // <Link href={`/`} passHref={true} key={project.name}>
             <div className="bg-gray-300 cursor-pointer p-2 rounded-xl py-5">
-            <Card as="li" >
-              <div className="relative z-10 flex h-12 w-12 block items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-                <Image
-                  src={project.logo}
-                  alt=""
-                  className="h-8 w-8"
-                  unoptimized
-                />
-              </div>
-              <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
-                <span>{project.name}</span>
-              </h2>
-              <Card.Description>{project.description}</Card.Description>
-              <p className="relative z-10 mt-3 flex flex-col text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200 text-center">
-                {/* <LinkIcon className="h-6 w-6 flex-none" /> */}
-                <span>Instrutor</span>
-                <span className="ml-2">{project.link.label}</span>
-              </p>
-            </Card>
+              <Card as="li">
+                <div className="relative z-10 flex h-12 w-12 block items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+                  {/* <Image
+                      src={project.logo}
+                      alt=""
+                      className="h-8 w-8"
+                      unoptimized
+                    /> */}
+                </div>
+                <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
+                  <span>{project.name}</span>
+                </h2>
+                <Card.Description>{project.description}</Card.Description>
+                <p className="relative z-10 mt-3 flex flex-col text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200 text-center">
+                  {/* <LinkIcon className="h-6 w-6 flex-none" /> */}
+                  <span>Instrutor</span>
+                  <span className="ml-2">{project.teacher}</span>
+                </p>
+              </Card>
             </div>
-            </Link>
+            // </Link>
           ))}
         </ul>
       </SimpleLayout>
     </>
-  )
+  );
 }
