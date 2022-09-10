@@ -9,7 +9,6 @@ import logoHelioStream from '../../images/logos/helio-stream.svg'
 import logoOpenShuttle from '../../images/logos/open-shuttle.svg'
 import logoPlanetaria from '../../images/logos/planetaria.svg'
 import Link from 'next/link'
-import { CardDesafio } from '../../components/CardDesafio'
 const projects = [
   {
     name: 'Planetaria',
@@ -59,19 +58,43 @@ function LinkIcon(props) {
   )
 }
 
-export default function Desafios() {
+export default function desafio() {
   return (
-    <><div className="flex items-center justify-center">
-        <div className='p-10 grid grid-cols-3 items-center'>
-            <CardDesafio />
-            <CardDesafio />
-            <CardDesafio />
-            <CardDesafio />
-            <CardDesafio />
-            <CardDesafio />
+    <>
 
-        </div>
+<div className="flex flex-col justify-between px-10  ">
+  <div className="bg-gray-300  w-[100%]">
+    <div className="flex flex-col mt-10">
+      <span>Noame da Aula</span>
+      <span className="text-center"> Historia do Brasil </span>
     </div>
+    <div className="flex items-center justify-center mb-10">
+    <video className="bg-gray-800 w-[80%] mt-3"></video>
+
+    </div>
+    <span>Lorem Lorem Lorem </span>
+    <div>
+      <span> Instrutor :</span>
+      <span>Vitor Mancio</span>
+    </div>
+  </div>
+  <div className="flex flex-col items-center justify-between">
+     <div className="flex flex-col items-center justify-center">
+       <span>Questao 1</span>
+      <input className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
+    </div>
+    <div className="flex flex-col items-center justify-center">
+       <span>Questao 2</span>
+      <input className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
+    </div>
+    <div className="flex flex-col items-center justify-center">
+       <span>Questao 3</span>
+      <input className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
+    </div>
+    <button className="bg-gray-300 w-[300px] mt-5 p-5 rounded-lg">Enviar</button>
+    </div>
+  </div>
+   
     </>
   )
 }
