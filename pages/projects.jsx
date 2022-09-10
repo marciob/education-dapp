@@ -1,5 +1,6 @@
 import Image from 'next/future/image'
 import Head from 'next/head'
+import { useState, useEffect } from 'react'
 
 import { Card } from '../components/Card'
 import { SimpleLayout } from '../components/SimpleLayout'
@@ -10,6 +11,8 @@ import logoOpenShuttle from '../images/logos/open-shuttle.svg'
 import logoPlanetaria from '../images/logos/planetaria.svg'
 import Link from 'next/link'
 import axios from 'axios'
+// import { useWallet } from '../context2/ConnectWalletContext'
+import { useIdentityContext } from '../context/IdentityContextProvider'
 const projects = [
   {
     name: 'Planetaria',
@@ -61,16 +64,25 @@ function LinkIcon(props) {
 
 export default function Projects() {
     // const [data,setData] = useState()
+    const wallet = useIdentityContext()
+    const [account, setAccount] =useState()
 
-    // useEffect(() => {
-    //     const fetch = async() => {
-    //         const response = await axios(get , url ..)
-    //         setData(response)
-    //     }
-    //     fetch()
-    // })
+    useEffect(() => {
+        // const fetch = async() => {
+        //     // const response = await axios(get , url ..)
+        //     // setData(response)
+        // }
+        // fetch()
+        setAccount(wallet)
+        console.log(wallet)
+    })
     //Criar funcao que vai puxar os dados
     // Fetch data no useEffect e save in state varias
+
+    const handleCheckWallet = () => {
+        console.log('wallet', wallet)
+        console.log('account', account)
+    }
   return (
     <>
       <Head>
@@ -115,6 +127,7 @@ export default function Projects() {
           ))}
         </ul>
       </SimpleLayout>
+      <button onClick={handleCheckWallet}>Check Wallet</button>
     </>
   )
 }
