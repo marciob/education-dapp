@@ -1,16 +1,18 @@
-import Image from "next/future/image";
-import Head from "next/head";
+import Image from 'next/future/image'
+import Head from 'next/head'
+import { useState, useEffect } from 'react'
 
-import { Card } from "../components/Card";
-import { SimpleLayout } from "../components/SimpleLayout";
-import logoAnimaginary from "../images/logos/animaginary.svg";
-import logoCosmos from "../images/logos/cosmos.svg";
-import logoHelioStream from "../images/logos/helio-stream.svg";
-import logoOpenShuttle from "../images/logos/open-shuttle.svg";
-import logoPlanetaria from "../images/logos/planetaria.svg";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { Card } from '../components/Card'
+import { SimpleLayout } from '../components/SimpleLayout'
+import logoAnimaginary from '../images/logos/animaginary.svg'
+import logoCosmos from '../images/logos/cosmos.svg'
+import logoHelioStream from '../images/logos/helio-stream.svg'
+import logoOpenShuttle from '../images/logos/open-shuttle.svg'
+import logoPlanetaria from '../images/logos/planetaria.svg'
+import Link from 'next/link'
+import axios from 'axios'
+// import { useWallet } from '../context2/ConnectWalletContext'
+import { useIdentityContext } from '../context/IdentityContextProvider'
 
 function LinkIcon(props) {
   return (
@@ -26,8 +28,6 @@ function LinkIcon(props) {
 export default function Projects() {
   const [projects, setProjects] = useState();
 
-  // pegar cursos
-
   useEffect(() => {
     fetch("https://ubo-dapp-api.herokuapp.com/api/courses/")
       .then((response) => {
@@ -38,6 +38,14 @@ export default function Projects() {
         setProjects(data);
       });
   }, []);
+
+    const wallet = useIdentityContext()
+    const [account, setAccount] =useState()
+
+    const handleCheckWallet = () => {
+        console.log('wallet', wallet)
+        console.log('account', account)
+    }
 
   return (
     <>
@@ -83,6 +91,7 @@ export default function Projects() {
           ))}
         </ul>
       </SimpleLayout>
+      <button onClick={handleCheckWallet}>Check Wallet</button>
     </>
   );
 }

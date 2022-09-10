@@ -1,13 +1,17 @@
 import Layout from '../components/Layout'
 import '../styles/globals.css'
 import { Header } from '../components/Header'
+import { ConnectWalletProvider } from '../context2/ConnectWalletContext'
+import { IdentityContextProvider } from '../context/IdentityContextProvider'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Header />
-      <Component {...pageProps} />
-    </Layout>
+    <IdentityContextProvider>
+      <Layout>
+        <Header />
+        <Component {...pageProps} />
+      </Layout>
+    </IdentityContextProvider>
   )
 }
 
