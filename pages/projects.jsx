@@ -51,7 +51,6 @@ export default function Projects() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(ob),
     })
       .then((response) => {
         return response.json();
