@@ -1,0 +1,39 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Totem
+    network: matic
+    source:
+      address: "0xDD1C101bE86b43E5a8841B18F4028d2A3E2Bb6B5"
+      abi: Totem
+      startBlock: 32958062
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - ChallengeAdded
+        - Claimed
+        - CourseAdded
+        - StudentAdded
+        - SubmittedChallenge
+        - ValidatedSubmit
+      abis:
+        - name: Totem
+          file: ./abis/Totem.json
+      eventHandlers:
+        - event: ChallengeAdded(indexed uint256,indexed uint256,uint256,string,string,string)
+          handler: handleChallengeAdded
+        - event: Claimed(indexed uint256,indexed uint256,indexed address,uint256)
+          handler: handleClaimed
+        - event: CourseAdded(string,indexed address,uint256,address,indexed uint256)
+          handler: handleCourseAdded
+        - event: StudentAdded(indexed uint256,indexed address)
+          handler: handleStudentAdded
+        - event: SubmittedChallenge(indexed uint256,indexed uint256,string,indexed address)
+          handler: handleSubmittedChallenge
+        - event: ValidatedSubmit(indexed uint256,indexed uint256,uint256,uint256,indexed address)
+          handler: handleValidatedSubmit
+      file: ./src/totem.ts

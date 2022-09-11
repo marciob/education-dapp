@@ -1,0 +1,49 @@
+type ChallengeAdded @entity {
+  id: ID!
+  challengeId: BigInt! # uint256
+  courseId: BigInt! # uint256
+  challengeReward: BigInt! # uint256
+  name: String! # string
+  question: String! # string
+  uri: String! # string
+}
+
+type Claimed @entity {
+  id: ID!
+  challengeId: BigInt! # uint256
+  courseId: BigInt! # uint256
+  studentAddress: Bytes! # address
+  reward: BigInt! # uint256
+}
+
+type CourseAdded @entity {
+  id: ID!
+  name: String! # string
+  courseOwner: Bytes! # address
+  totalStaked: BigInt! # uint256
+  stakedTokenAddress: Bytes! # address
+  courseId: BigInt! # uint256
+}
+
+type StudentAdded @entity {
+  id: ID!
+  courseId: BigInt! # uint256
+  studentAddress: Bytes! # address
+}
+
+type SubmittedChallenge @entity {
+  id: ID!
+  courseId: BigInt! # uint256
+  challengeId: BigInt! # uint256
+  answer: String! # string
+  studentAddress: Bytes! # address
+}
+
+type ValidatedSubmit @entity {
+  id: ID!
+  challengeId: BigInt! # uint256
+  courseId: BigInt! # uint256
+  score: BigInt! # uint256
+  rewardAmount: BigInt! # uint256
+  studentAddress: Bytes! # address
+}
