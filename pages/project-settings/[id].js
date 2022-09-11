@@ -123,7 +123,7 @@ export default function ProjectSettings() {
               onClick={handleCreateChallenge}
               className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-              Enviar
+              Criar
             </button>
   
             </div>
@@ -132,9 +132,9 @@ export default function ProjectSettings() {
 
 
             <div>
-              <h3 className="text-lg font-medium leading-6 text-gray-900 mt-10">Adicionar Aluno</h3>
-              <p className="mt-1 text-sm text-gray-500">
-                This information will be displayed publicly so be careful what you share.
+              <h3 className="text-2xl font-medium leading-6 text-gray-900 mt-10 text-center">Adicionar Aluno</h3>
+              <p className="mt-1 text-lg text-gray-500 text-center">
+                Adicione alunos para os seus cursos
               </p>
             </div>
 
@@ -168,7 +168,7 @@ export default function ProjectSettings() {
               onClick={handleAddStudent}
               className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-              Enviar
+              Adicionar
             </button>
   
             </div>

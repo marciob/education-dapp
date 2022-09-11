@@ -5,6 +5,7 @@ import { CardResposta } from "../components/CardRespostas"
 import axios from "axios"
 import {ethers} from 'ethers'
 import Totem from './utils/Totem.json'
+import Link from "next/link"
 
 const dataTemp = [
   {
@@ -112,7 +113,7 @@ export default function Validate() {
   }
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex flex-col items-center justify-center">
 
         <div className='p-10 grid grid-cols-3 items-center'>
         {submittedData.map((data) => (
@@ -140,8 +141,11 @@ export default function Validate() {
           </div>
         ))}
 
-
         </div>
+        <Link href="/project-settings/1">
+        <div className="p-2 bg-gray-300 rounded-lg cursor-pointer">Settings dos Cursos</div>
+      </Link>
+
     </div>
     
   )
