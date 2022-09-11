@@ -1,6 +1,7 @@
 import Image from "next/future/image";
 import Head from "next/head";
 import { useState, useEffect } from "react";
+import { storeFiles, makeFileObjects, passMyData } from "../../storing-data";
 
 import { useRouter } from "next/router";
 
@@ -23,37 +24,35 @@ function LinkIcon(props) {
 
 export default function Desafio() {
   // pegar info de uma aula e pergunta da aula
-  const [lesson, setLesson] = useState('');
-  const [input,setInput] = useState('')
+  const [lesson, setLesson] = useState("");
+  const [input, setInput] = useState("");
   const router = useRouter();
-  const { lessonId } = router.query
+  const { lessonId } = router.query;
   // console.log('router query', router.query)
 
   let course_id = 3;
   let lesson_id = lessonId;
 
-
   useEffect(() => {
-    if(lessonId){
+    if (lessonId) {
       const url = `https://ubo-dapp-api.herokuapp.com/api/courses/${course_id}/lessons/${lesson_id}`;
 
-    fetch(url)
-      .then((response) => {
-        console.log("response", response)
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setLesson(data);
-      });
-
+      fetch(url)
+        .then((response) => {
+          console.log("response", response);
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setLesson(data);
+        });
     }
-    
   }, []);
 
-  const handleSubmit =() => {
-    console.log(input)
-  }
+  const handleSubmit = () => {
+    console.log(input);
+    passMyData(input);
+  };
 
   return (
     <>
@@ -75,7 +74,10 @@ export default function Desafio() {
         <div className="flex flex-col items-center justify-between">
           <div className="flex flex-col items-center justify-center">
             <span>Questao 1</span>
-            <input onChange={(e) => setInput(e.target.value)} className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
+            <input
+              onChange={(e) => setInput(e.target.value)}
+              className="border-2 border-black w-[500px] h-[150px] rounded-lg"
+            ></input>
           </div>
           <button onClick={handleSubmit}>Enviar</button>
         </div>
