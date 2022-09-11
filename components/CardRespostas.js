@@ -14,24 +14,23 @@ export function CardResposta() {
  
 
   return (
-    <div className='ml-8 mb-8 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]'>
+    <div className='ml-8 mb-8 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] rounded-2xl'>
         {/* <div>Title</div> */}
-        <div className="h-[300px] w-[250px] bg-gray-300 flex flex-col items-center justify-between">
-  <div className="mt-3 flex flex-col items-center">
-      <div>Course Id : </div>
-      <div>Challenge Id : </div>
-      <div>Question</div>
-      <span></span>
+      <div className="h-[300px] w-[250px] bg-gray-200 flex flex-col items-center justify-between rounded-2xl">
+    <div className="mt-3 flex flex-col items-center rounded-2xl text-black">
+      <p>Course Id : </p>
+      <p>Challenge Id : </p>
+      <p>Question</p>
   </div> 
   <div>
-    Answer:
+    <p>Answer:</p>
   </div>
 
 
-  <div className="flex flex-col items-center">
+  <div className="flex flex-col items-center text-black px-4">
     <span className="mb-3">Percentage</span>
-    <input className="bg-white mb-3"></input>
-    <button className="mb-3">Enviar</button>
+    <input className="bg-white mb-3 px-8 w-full text-black"></input>
+    <button className="mb-3 w-full bg-lime-500 rounded-2xl">Enviar</button>
   </div>
 </div>
 

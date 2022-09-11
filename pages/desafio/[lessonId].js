@@ -57,27 +57,27 @@ export default function Desafio() {
 
   return (
     <>
-      <div className="flex flex-col justify-between px-10  ">
-        <div className="bg-gray-300  w-[100%]">
-          <div className="flex flex-col mt-10">
-            <span>Nome da Aula</span>
-            <span className="text-center"> Historia do Brasil </span>
+      <div className="flex flex-col justify-between px-10 text-center">
+        <div className=" w-[100%]">
+          <div className="flex flex-col mt-10 text-center">
+            <p className="mb-3.5">Nome da Aula</p>
+            <p> Historia do Brasil </p>
           </div>
           <div className="flex items-center justify-center mb-10">
-            <video className="bg-gray-800 w-[80%] mt-3"></video>
+            <video className="bg-black w-[40%] mt-3 "></video>
           </div>
-          <span>Lorem Lorem Lorem </span>
+          <p className="max-w-lg m-auto pb-8">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem voluptas consequatur molestias quasi sed officiis pariatur soluta aperiam esse quibusdam, fuga iste quos doloribus totam, consectetur porro, distinctio vitae voluptatum.</p>
           <div>
-            <span> Instrutor :</span>
-            <span>Vitor Mancio</span>
+            <p className="mb-3.5"> Instrutor :</p>
+            <p className="mb-3.5">Vitor Mancio</p>
           </div>
         </div>
         <div className="flex flex-col items-center justify-between">
           <div className="flex flex-col items-center justify-center">
-            <span>Questao 1</span>
-            <input onChange={(e) => setInput(e.target.value)} className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
+            <p className="mb-3.5">Questao 1:</p>
+            <input className="border-2 border-black mb-3.5 w-full" onChange={(e) => setInput(e.target.value)} ></input>
           </div>
-          <button onClick={handleSubmit}>Enviar</button>
+          <button onClick={handleSubmit} className='mb-3.5 w-full max-w-lg m-auto bg-lime-500 rounded-2xl'>Enviar</button>
         </div>
       </div>
     </>
