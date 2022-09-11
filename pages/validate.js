@@ -1,6 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 // import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/20/solid'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { CardResposta } from "../components/CardRespostas"
 import axios from "axios"
 
@@ -80,6 +80,7 @@ const people = [
 ]
 
 export default function Validate() {
+  const [submittedData, setSubmittedData] = useState()
 
   const fetchAnswers = async () => {
     // Construct query for subgraph
@@ -102,8 +103,10 @@ export default function Validate() {
       const result = await axios.post(subgraphURL, postData)
       // setQuestion(result.data.data.parentMessageAddeds[0])
       // setAnswers(result.data.data.messageAddeds)
-      console.log("result",result)
+      // console.log("result",result)
       console.log("result.data",result.data.data)
+      console.log("result.data.submittedChallenges",result.data.data.submittedChallenges)
+      setSubmittedData(result.data.data.submittedChallenges)
       // setAnswers(result.data.data.messageAddeds)
     } catch (err) {
       console.log('Error fetching subgraph data: ', err)
@@ -119,13 +122,13 @@ export default function Validate() {
 
   return (
     <div className="flex items-center justify-center">
-        <div className='p-10 grid grid-cols-3 items-center '>
-            <CardResposta />
-            <CardResposta />
-            <CardResposta />
-            <CardResposta />
-            <CardResposta />
-            <CardResposta />
+
+        <div className='p-10 grid grid-cols-3 items-center'>
+
+        {submittedData.map((data) => (
+          <CardResposta key={data.id} info={data}/>
+        ))}
+
 
         </div>
     </div>
