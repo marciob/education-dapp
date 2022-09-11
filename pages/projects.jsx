@@ -41,23 +41,18 @@ function LinkIcon(props) {
 }
 
 export default function Projects() {
-  const [projects, setProjects] = useState();
+  const [courses, setCourses] = useState();
 
   const url = "https://ubo-dapp-api.herokuapp.com/api/courses/";
 
   useEffect(() => {
-    fetch(url, {
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(url)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         console.log(data);
-        setProjects(data);
+        setCourses(data);
       });
   }, []);
 
