@@ -2,14 +2,6 @@ import Image from "next/future/image";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 
-import { Card } from "../../components/Card";
-import { SimpleLayout } from "../../components/SimpleLayout";
-import logoAnimaginary from "../../images/logos/animaginary.svg";
-import logoCosmos from "../../images/logos/cosmos.svg";
-import logoHelioStream from "../../images/logos/helio-stream.svg";
-import logoOpenShuttle from "../../images/logos/open-shuttle.svg";
-import logoPlanetaria from "../../images/logos/planetaria.svg";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 const lesson = {
@@ -32,6 +24,7 @@ function LinkIcon(props) {
 export default function Desafio() {
   // pegar info de uma aula e pergunta da aula
   const [lesson, setLesson] = useState('');
+  const [input,setInput] = useState('')
   const router = useRouter();
   const { lessonId } = router.query
   // console.log('router query', router.query)
@@ -41,7 +34,8 @@ export default function Desafio() {
 
 
   useEffect(() => {
-    const url = `https://ubo-dapp-api.herokuapp.com/api/courses/${course_id}/lessons/${lesson_id}`;
+    if(lessonId){
+      const url = `https://ubo-dapp-api.herokuapp.com/api/courses/${course_id}/lessons/${lesson_id}`;
 
     fetch(url)
       .then((response) => {
@@ -52,7 +46,14 @@ export default function Desafio() {
         console.log(data);
         setLesson(data);
       });
+
+    }
+    
   }, []);
+
+  const handleSubmit =() => {
+    console.log(input)
+  }
 
   return (
     <>
@@ -74,8 +75,9 @@ export default function Desafio() {
         <div className="flex flex-col items-center justify-between">
           <div className="flex flex-col items-center justify-center">
             <span>Questao 1</span>
-            <input className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
+            <input onChange={(e) => setInput(e.target.value)} className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
           </div>
+          <button onClick={handleSubmit}>Enviar</button>
         </div>
       </div>
     </>
