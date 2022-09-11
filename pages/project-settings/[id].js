@@ -46,7 +46,7 @@ export default function ProjectSettings() {
     e.preventDefault()
     console.log(totemContract)
 
-    const tx = await totemContract.addChallenge(studentAddress,courseId2)
+    const tx = await totemContract.addStudents(studentAddress,courseId2)
     console.log(tx)
   }
 
