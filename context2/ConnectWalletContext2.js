@@ -1,32 +1,36 @@
-import React, {useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 
-const ConnectWalletContext = React.createContext()
-const ConnectWalletUpdateContext = React.createContext()
+export const IdentityContext = React.createContext()
+export const IdentityLoginContext = React.createContext()
 
-export function useWallet(){
-    return useContext(ConnectWalletContext)
+export function useIdentity() {
+  return useContext(IdentityContext)
 }
 
-export function useConnectWallet(){
-    return useContext(ConnectWalletUpdateContext)
+export function useIdentityLogin() {
+  return useContext(IdentityLoginContext)
 }
 
-export function ConnectWalletProvider( { children }){
-    const [connectedWallet, setConnectedWallet] = useState();
+export function IdentityProvider({ children }) {
+  const [identity, setIdentity] = useState('')
 
-    function connectNewWallet(account) {
-        setConnectedWallet(account)
-    }
+  function loginIdentity(value) {
+    window.localStorage.setItem('identity', value)
+    setIdentity(value)
+  }
 
+  // const loginIdentity = useCallback((value) => {
+  //   setIdentity(value)
+  //   window.localStorage.setItem('identity', value)
+  // }, [])
 
-    return(
-        <ConnectWalletContext.Provider value={connectedWallet}>
-            <ConnectWalletUpdateContext.Provider value={connectNewWallet}>
-            {children}
-            </ConnectWalletUpdateContext.Provider>
-        </ConnectWalletContext.Provider>
-            
-    )
-
-
+  return (
+    <IdentityContext.Provider value={identity}>
+      <IdentityLoginContext.Provider value={loginIdentity}>
+        {children}
+      </IdentityLoginContext.Provider>
+    </IdentityContext.Provider>
+  )
 }
+
+// Context.Consumer and Context.Provider

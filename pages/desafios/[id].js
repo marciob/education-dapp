@@ -61,12 +61,14 @@ function LinkIcon(props) {
 }
 
 export default function Desafios() {
+
   const [lessons, setLessons] = useState();
 
   // hardcoded course id
   let course_id = 3;
 
   const url = `https://ubo-dapp-api.herokuapp.com/api/courses/${course_id}/lessons`;
+
 
   useEffect(() => {
     fetch(url)
@@ -90,7 +92,9 @@ export default function Desafios() {
           <CardDesafio />
           <CardDesafio />
         </div>
+
       </div>
     </>
   );
+
 }

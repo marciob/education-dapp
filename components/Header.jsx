@@ -8,11 +8,13 @@ import { useState } from 'react'
 import { Container } from './Container'
 import avatarImage from '../images/avatar.jpg'
 import { Fragment, useEffect, useRef } from 'react'
-import { useIdentityLoginContext } from '../context/IdentityContextProvider'
+import { useIdentityLoginContext, useIdentityContext } from '../context/IdentityContextProvider'
+import Web3 from 'web3'
 
 
 export function Header() {
   const connectWallet = useIdentityLoginContext();
+  // const wallet = useIdentityContext()
   console.log('connectWallet', connectWallet)
   const [account,setAccount] = useState(); 
 
@@ -30,14 +32,24 @@ export function Header() {
   }
 
   useEffect(()=>{
-    // const connect = async () => {
-    //   const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-    //   const accountTemp = accounts[0]
-    //   console.log("account",accountTemp)
-    //   setAccount(accountTemp)
-    // }
-    // connect()
-  })
+    
+    checkAccount()
+    // console.log('wallet',wallet)
+  },[])
+
+  const checkAccount = async ()=> {
+    let web3 = new Web3(window.ethereum)
+    // setWeb3(web3)
+    const accounts = await web3.eth.getAccounts()
+    if(accounts[0]){
+      console.log('accounts',accounts[0])
+      setAccount(accounts[0])
+      connectWallet(accounts[0])
+    }
+  
+  }
+
+
  
 
   return (
