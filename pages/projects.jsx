@@ -42,7 +42,7 @@ export default function Projects() {
 
   const fetchAnswers = async () => {
     // Construct query for subgraph
-    const subgraphURL= "https://api.thegraph.com/subgraphs/name/danilowhk/totem-subgraph-polygon2"
+    const subgraphURL= "https://api.thegraph.com/subgraphs/name/danilowhk/totem-subgraph-polygon3"
     const postData = {
       query: `
       {

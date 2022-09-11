@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import {ethers} from 'ethers'
 import Totem from '../utils/Totem.json'
+import axios from 'axios'
 
 import { useRouter } from "next/router";
 
@@ -34,37 +35,60 @@ export default function Desafio() {
   const [account,setAccount] = useState()
   const [totemContract,setTotemContract] = useState()
 
-  const totemContractAddress="0xc57B6B0efaf07b546c9AeE8AF8cA984660167258"
+  const totemContractAddress="0xDD1C101bE86b43E5a8841B18F4028d2A3E2Bb6B5"
   const totemContractAbi= Totem.abi
   // console.log('router query', router.query)
 
-  let course_id = 3;
-  let lesson_id = lessonId;
-
-
   useEffect(() => {
-    if(lessonId){
-    const url = `https://ubo-dapp-api.herokuapp.com/api/courses/${course_id}/lessons/${lesson_id}`;
-      try{
-        fetch(url)
-        .then((response) => {
-          console.log("response", response)
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
-          setLesson(data);
-        });
-  
-
-      } catch(e){
-        console.log(e)
-      }
-
+    if(!lessonId) {
+      return;
     }
+    console.log("lessonId",lessonId)
+    fetchAnswers();
     getWallet()
     
-  }, []);
+    
+  }, [lessonId]);
+
+
+  const fetchAnswers = async () => {
+    // Construct query for subgraph
+    console.log("fetch Answer")
+    const subgraphURL= "https://api.thegraph.com/subgraphs/name/danilowhk/totem-subgraph-polygon3"
+    const postData = {
+      query: `
+      {
+        challengeAddeds(first: 5 
+         where: {challengeId: ${lessonId}}) {
+          id
+          challengeId
+          courseId
+          challengeReward
+          name
+          question
+          uri
+        }
+      
+      }
+      `,
+    }
+    // Fetch data
+    try {
+      const result = await axios.post(subgraphURL, postData)
+      // setQuestion(result.data.data.parentMessageAddeds[0])
+      // setAnswers(result.data.data.messageAddeds)
+      // console.log("result",result)
+      console.log("result.data",result.data.data)
+      console.log("result.data.challengeAddeds",result.data.data.challengeAddeds)
+      setLesson(result.data.data.challengeAddeds)
+      // setAnswers(result.data.data.messageAddeds)
+    } catch (err) {
+      console.log('Error fetching subgraph data: ', err)
+    }
+  }
+
+
+
 
 
 
@@ -75,12 +99,12 @@ export default function Desafio() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       await provider.send("eth_requestAccounts", []);
       const signer = provider.getSigner();
-      console.log("account",signer)
-      console.log('totemAbi',totemContractAbi)
-      console.log('Contract Address',totemContractAddress )
+      // console.log("account",signer)
+      // console.log('totemAbi',totemContractAbi)
+      // console.log('Contract Address',totemContractAddress )
       setAccount(signer)
       const totemContractTemp = new ethers.Contract(totemContractAddress,totemContractAbi,signer)
-      console.log("Contract",totemContractTemp )
+      // console.log("Contract",totemContractTemp )
       setTotemContract(totemContractTemp);
 
 
@@ -111,12 +135,12 @@ export default function Desafio() {
         <div className=" w-[100%]">
           <div className="flex flex-col mt-10 text-center">
             <p className="mb-3.5">Nome da Aula</p>
-            <p> Historia do Brasil </p>
+            <p>Git 101</p>
           </div>
           <div className="flex items-center justify-center mb-10">
             <video className="bg-black w-[40%] mt-3 "></video>
           </div>
-          <p className="max-w-lg m-auto pb-8">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem voluptas consequatur molestias quasi sed officiis pariatur soluta aperiam esse quibusdam, fuga iste quos doloribus totam, consectetur porro, distinctio vitae voluptatum.</p>
+          <p className="max-w-lg m-auto pb-8">Introducao </p>
           <div>
             <p className="mb-3.5"> Instrutor :</p>
             <p className="mb-3.5">Vitor Mancio</p>

@@ -15,7 +15,7 @@ export function CardDesafio(props) {
  
 
   return (
-    <Link href={`/desafio/${props.lesson.id}`}>
+    <Link href={`/desafio/${props.lesson.challengeId}`}>
       <div className='ml-8 mb-8 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]'>
           {/* <div>Title</div> */}
           <div>
