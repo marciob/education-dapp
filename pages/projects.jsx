@@ -46,7 +46,7 @@ export default function Projects() {
     const postData = {
       query: `
       {
-        courseAddeds(first: 5) {
+        courseAddeds(first: 100) {
           id
           name
           courseId
