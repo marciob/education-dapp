@@ -11,7 +11,7 @@
     "@headlessui/react": "^1.7.0",
     "@heroicons/react": "^2.0.10",
     "@metamask/detect-provider": "^1.2.0",
-    "axios": "^0.25.0",
+    "axios": "^0.27.2",
     "clsx": "^1.2.1",
     "next": "12.3.0",
     "react": "17.0.2",

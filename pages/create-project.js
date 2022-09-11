@@ -1,20 +1,10 @@
-/*
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
+import ethers from 'ethers'
 export default function CreateProject() {
+  const handleCreateProject = (e) => {
+    e.preventDefault()
+
+  }
+
     return (
       <form className="space-y-8 divide-y divide-gray-200 p-10">
         <div className="space-y-8 divide-y divide-gray-200">
@@ -146,10 +136,10 @@ export default function CreateProject() {
               Cancel
             </button>
             <button
-              type="submit"
               className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              onClick={handleCreateProject}
             >
-              Save
+              Create
             </button>
           </div>
         </div>

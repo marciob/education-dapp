@@ -10,7 +10,7 @@ import { Fragment, useEffect, useRef } from 'react'
 
 
 
-export function CardResposta({lesson ,id}) {
+export function CardResposta() {
  
 
   return (
@@ -18,11 +18,11 @@ export function CardResposta({lesson ,id}) {
         {/* <div>Title</div> */}
         <div className="h-[300px] w-[250px] bg-gray-300 flex flex-col items-center justify-between">
   <div className="mt-3 flex flex-col items-center">
-      <div>Course Id : {id}</div>
-      <div>Challenge Id : {lesson.id}</div>
+      <div>Course Id : </div>
+      <div>Challenge Id : </div>
       <div>Question</div>
-      <span>{lesson.lesson_question}</span>
-  </div>
+      <span></span>
+  </div> 
   <div>
     Answer:
   </div>
