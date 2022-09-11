@@ -1,18 +1,18 @@
-import Image from 'next/future/image'
-import Head from 'next/head'
-import { useState, useEffect } from 'react'
+import Image from "next/future/image";
+import Head from "next/head";
+import { useState, useEffect } from "react";
 
-import { Card } from '../components/Card'
-import { SimpleLayout } from '../components/SimpleLayout'
-import logoAnimaginary from '../images/logos/animaginary.svg'
-import logoCosmos from '../images/logos/cosmos.svg'
-import logoHelioStream from '../images/logos/helio-stream.svg'
-import logoOpenShuttle from '../images/logos/open-shuttle.svg'
-import logoPlanetaria from '../images/logos/planetaria.svg'
-import Link from 'next/link'
-import axios from 'axios'
+import { Card } from "../components/Card";
+import { SimpleLayout } from "../components/SimpleLayout";
+import logoAnimaginary from "../images/logos/animaginary.svg";
+import logoCosmos from "../images/logos/cosmos.svg";
+import logoHelioStream from "../images/logos/helio-stream.svg";
+import logoOpenShuttle from "../images/logos/open-shuttle.svg";
+import logoPlanetaria from "../images/logos/planetaria.svg";
+import Link from "next/link";
+import axios from "axios";
 // import { useWallet } from '../context2/ConnectWalletContext'
-import { useIdentityContext } from '../context/IdentityContextProvider'
+import { useIdentityContext } from "../context/IdentityContextProvider";
 
 function LinkIcon(props) {
   return (
@@ -28,8 +28,16 @@ function LinkIcon(props) {
 export default function Projects() {
   const [projects, setProjects] = useState();
 
+  const url = "https://ubo-dapp-api.herokuapp.com/api/courses/";
+
   useEffect(() => {
-    fetch("https://ubo-dapp-api.herokuapp.com/api/courses/")
+    fetch(url, {
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(ob),
+    })
       .then((response) => {
         return response.json();
       })
@@ -39,13 +47,13 @@ export default function Projects() {
       });
   }, []);
 
-    const wallet = useIdentityContext()
-    const [account, setAccount] =useState()
+  const wallet = useIdentityContext();
+  const [account, setAccount] = useState();
 
-    const handleCheckWallet = () => {
-        console.log('wallet', wallet)
-        console.log('account', account)
-    }
+  const handleCheckWallet = () => {
+    console.log("wallet", wallet);
+    console.log("account", account);
+  };
 
   return (
     <>
