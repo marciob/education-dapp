@@ -44,17 +44,13 @@ export default function Desafios() {
 
 
   useEffect(() => {
-    // fetch(url)
-    //   .then((response) => {
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     console.log(data);
-    //     setLessons(data);
-    //   });
+    if(!id) {
+      return;
+    }
+
     console.log("id", id)
     fetchAnswers()
-  }, []);
+  }, [id]);
 
   const fetchAnswers = async () => {
     // Construct query for subgraph
@@ -67,9 +63,12 @@ export default function Desafios() {
           first: 100
           where: {courseId: ${id}}
           ) {
-          id
-          challengeId
-          challengeReward
+            id
+            challengeId
+            challengeReward
+            name
+            question
+            uri
         }
       
       }
@@ -101,7 +100,11 @@ export default function Desafios() {
           </div>
         ))}
         </div>
-        
+        {challenges ? null : (  <Link href="/project-settings/1">
+        <div className="p-2 bg-gray-300 rounded-lg cursor-pointer">Settings dos Cursos</div>
+      </Link>
+        )}
+      
       </div>
     </>
   );

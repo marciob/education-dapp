@@ -80,7 +80,7 @@ export default function Desafio() {
       // console.log("result",result)
       console.log("result.data",result.data.data)
       console.log("result.data.challengeAddeds",result.data.data.challengeAddeds)
-      setLesson(result.data.data.challengeAddeds)
+      setLesson(result.data.data.challengeAddeds[0])
       // setAnswers(result.data.data.messageAddeds)
     } catch (err) {
       console.log('Error fetching subgraph data: ', err)
@@ -134,21 +134,24 @@ export default function Desafio() {
       <div className="flex flex-col justify-between px-10 text-center">
         <div className=" w-[100%]">
           <div className="flex flex-col mt-10 text-center">
-            <p className="mb-3.5">Nome da Aula</p>
-            <p>Git 101</p>
+            <p className="mb-3.5 text-2xl font-bold">{lesson.name}</p>
+            {/* <p>Git 101</p> */}
           </div>
-          <div className="flex items-center justify-center mb-10">
-            <video className="bg-black w-[40%] mt-3 "></video>
+          <div className="flex items-center  justify-center mb-10">
+          <a className="w-[40%]" href={lesson.uri}>
+            <video src={lesson.uri} className="bg-black  mt-3 "></video>
+          </a>
           </div>
-          <p className="max-w-lg m-auto pb-8">Introducao </p>
+          {/* <p className="max-w-lg m-auto pb-8">Introducao </p> */}
           <div>
-            <p className="mb-3.5"> Instrutor :</p>
+            <p className="mb-3.5 font-bold"> Instrutor:</p>
             <p className="mb-3.5">Vitor Mancio</p>
           </div>
         </div>
         <div className="flex flex-col items-center justify-between">
           <div className="flex flex-col items-center justify-center">
-            <p className="mb-3.5">Questao 1:</p>
+            <p className="mb-3.5 font-bold">Questao:</p>
+            <p className="mb-3.5">{lesson.question}</p>
             <input className="border-2 border-black mb-3.5 p-10" onChange={(e) => setInput(e.target.value)} ></input>
           </div>
           <div className="flex flex-col items-center justify-center">
