@@ -26,11 +26,13 @@ function LinkIcon(props) {
 }
 
 export default function Projects() {
-  const [projects, setProjects] = useState();
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
+    
     fetch("https://ubo-dapp-api.herokuapp.com/api/courses/")
       .then((response) => {
+        console.log('response', response)
         return response.json();
       })
       .then((data) => {
@@ -66,7 +68,7 @@ export default function Projects() {
         >
           {projects.map((project) => (
             // <Link href={`/`} passHref={true} key={project.name}>
-            <div className="bg-gray-300 cursor-pointer p-2 rounded-xl py-5">
+            <div className="bg-gray-300 cursor-pointer p-2 rounded-xl py-5" key={project.name}>
               <Card as="li">
                 <div className="relative z-10 flex h-12 w-12 block items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
                   {/* <Image

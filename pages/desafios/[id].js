@@ -61,7 +61,7 @@ function LinkIcon(props) {
 
 export default function Desafios() {
   return (
-    <><div className="flex items-center justify-center">
+  <div className="flex items-center justify-center">
         <div className='p-10 grid grid-cols-3 items-center'>
             <CardDesafio />
             <CardDesafio />
@@ -72,6 +72,6 @@ export default function Desafios() {
 
         </div>
     </div>
-    </>
+
   )
 }
