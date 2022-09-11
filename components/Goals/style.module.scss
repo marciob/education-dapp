@@ -1,0 +1,35 @@
+.container {
+    
+}
+
+.content {
+    max-width: 1200px;
+    padding-inline: 3rem;
+    margin: 0 auto;
+
+    h1 {
+        text-align: center;
+
+        margin-bottom: 4rem;
+    }
+    
+}
+
+.wrapParagrafh {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    row-gap: 4rem;
+
+
+    p {
+        background-color: black;
+        border-radius: 7px;
+        color: white;
+        padding: 2rem 4rem;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    padding-bottom: 4rem;
+}

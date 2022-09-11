@@ -1,12 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  button {
+    border: 0;
+  
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.circle-active {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: green;
-}
