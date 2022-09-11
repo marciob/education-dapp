@@ -30,12 +30,11 @@ export default function ProjectSettings() {
       const totemContractTemp = new ethers.Contract(totemContractAddress,totemContractAbi,signer)
       console.log("Contract",totemContractTemp )
       setTotemContract(totemContractTemp);
-
-
     }
   }
 
   useEffect(()=>{
+    
     getWallet()
   },[])
 
