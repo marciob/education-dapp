@@ -1,197 +1,213 @@
-import {ethers} from 'ethers'
-import { useEffect, useState } from 'react'
-import Totem from '../utils/Totem.json'
+import { ethers } from "ethers";
+import { useEffect, useState } from "react";
+import Totem from "../utils/Totem.json";
 
 export default function ProjectSettings() {
-  const [account,setAccount] = useState()
-  const [totemContract,setTotemContract] = useState()
-  const [courseId,setCourseId] = useState()
-  const [challengeReward,setChallengeReward] =useState()
-  const [uri,setUri] = useState()
-  const [questao,setQuestao]= useState()
-  const [challengeName,setChallengeName] = useState()
+  const [account, setAccount] = useState();
+  const [totemContract, setTotemContract] = useState();
+  const [courseId, setCourseId] = useState();
+  const [challengeReward, setChallengeReward] = useState();
+  const [uri, setUri] = useState();
+  const [questao, setQuestao] = useState();
+  const [challengeName, setChallengeName] = useState();
 
-  const [studentAddress,setStudentAddress] = useState()
-  const [courseId2, setCourseId2] = useState()
+  const [studentAddress, setStudentAddress] = useState();
+  const [courseId2, setCourseId2] = useState();
 
-
-  const totemContractAddress="0xDD1C101bE86b43E5a8841B18F4028d2A3E2Bb6B5"
-  const totemContractAbi= Totem.abi
+  const totemContractAddress = "0xDD1C101bE86b43E5a8841B18F4028d2A3E2Bb6B5";
+  const totemContractAbi = Totem.abi;
 
   const getWallet = async () => {
-    if(window.ethereum){
+    if (window.ethereum) {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       await provider.send("eth_requestAccounts", []);
       const signer = provider.getSigner();
-      console.log("account",signer)
-      console.log('totemAbi',totemContractAbi)
-      console.log('Contract Address',totemContractAddress )
-      setAccount(signer)
-      const totemContractTemp = new ethers.Contract(totemContractAddress,totemContractAbi,signer)
-      console.log("Contract",totemContractTemp )
+      console.log("account", signer);
+      console.log("totemAbi", totemContractAbi);
+      console.log("Contract Address", totemContractAddress);
+      setAccount(signer);
+      const totemContractTemp = new ethers.Contract(
+        totemContractAddress,
+        totemContractAbi,
+        signer
+      );
+      console.log("Contract", totemContractTemp);
       setTotemContract(totemContractTemp);
     }
-  }
+  };
 
-  useEffect(()=>{
-    
-    getWallet()
-  },[])
+  useEffect(() => {
+    getWallet();
+  }, []);
 
   const handleCreateChallenge = async (e) => {
-    e.preventDefault()
-    console.log(totemContract)
-    const tx = await totemContract.addChallenge(courseId,challengeReward,challengeName,questao,uri)
-    console.log(tx)
-  }
+    e.preventDefault();
+    console.log(totemContract);
+    const tx = await totemContract.addChallenge(
+      courseId,
+      challengeReward,
+      challengeName,
+      questao,
+      uri
+    );
+    console.log(tx);
+  };
 
   const handleAddStudent = async (e) => {
-    e.preventDefault()
-    console.log(totemContract)
+    e.preventDefault();
+    console.log(totemContract);
 
-    const tx = await totemContract.addStudents(studentAddress,courseId2)
-    console.log(tx)
-  }
+    const tx = await totemContract.addStudents(studentAddress, courseId2);
+    console.log(tx);
+  };
 
-
-
-    return (
-      <form className="space-y-8 divide-y divide-gray-200 p-10">
-        <div className="space-y-8 divide-y divide-gray-200">
+  return (
+    <form className="space-y-8 divide-y divide-gray-200 p-10">
+      <div className="space-y-8 divide-y divide-gray-200">
+        <div>
           <div>
-            <div>
-              <h3 className="text-2xl font-medium leading-6 text-gray-900 text-center">Crie um desafio</h3>
-              <p className="mt-1 text-lg text-gray-500 text-center mb-3">
-                Escolha o Id do Curso e a Remcompensa do Desafio
-              </p>
-            </div>
+            <h3 className="text-2xl font-medium leading-6 text-gray-900 text-center">
+              Crie um desafio
+            </h3>
+            <p className="mt-1 text-lg text-gray-500 text-center mb-3">
+              Escolha o Id do Curso e a Recompensa do Desafio
+            </p>
+          </div>
 
-  
-            <div className="mt-3 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-              <div className="sm:col-span-4">
-              </div>
-
-              
-  
-            </div>
-            <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <div className="mt-3 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div className="sm:col-span-4"></div>
+          </div>
+          <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
             <div className="sm:col-span-3">
-                <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
-                  Nome do Desafio
-                </label>
-                <div className="mt-1">
-                  <input
-                    onChange={(e) => setChallengeName(e.target.value)}
-                    className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  />
-                </div>
+              <label
+                htmlFor="last-name"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Nome do Desafio
+              </label>
+              <div className="mt-1">
+                <input
+                  onChange={(e) => setChallengeName(e.target.value)}
+                  className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                />
               </div>
-              <div className="sm:col-span-3">
-                <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                  Id do Curso
-                </label>
-                <div className="mt-1">
-                  <input
-                    onChange={(e) => setCourseId(e.target.value)}
-                    className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  />
-                </div>
+            </div>
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="first-name"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Id do Curso
+              </label>
+              <div className="mt-1">
+                <input
+                  onChange={(e) => setCourseId(e.target.value)}
+                  className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                />
               </div>
-  
-              <div className="sm:col-span-3">
-                <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
-                  Recompensa do Desafio
-                </label>
-                <div className="mt-1">
-                  <input
-                    onChange={(e) => setChallengeReward(e.target.value)}
-                    className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  />
-                </div>
+            </div>
+
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="last-name"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Recompensa do Desafio
+              </label>
+              <div className="mt-1">
+                <input
+                  onChange={(e) => setChallengeReward(e.target.value)}
+                  className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                />
               </div>
-              <div className="sm:col-span-3">
-                <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                  Link da Aula
-                </label>
-                <div className="mt-1">
-                  <input
-                    onChange={(e) => setUri(e.target.value)}
-                    className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  />
-                </div>
+            </div>
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="first-name"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Link da Aula
+              </label>
+              <div className="mt-1">
+                <input
+                  onChange={(e) => setUri(e.target.value)}
+                  className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                />
               </div>
-  
-              <div className="sm:col-span-3">
-                <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
-                  Questão da Aula
-                </label>
-                <div className="mt-1">
-                  <input
-                    onChange={(e) => setQuestao(e.target.value)}
-                    className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  />
-                </div>
+            </div>
+
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="last-name"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Questão da Aula
+              </label>
+              <div className="mt-1">
+                <input
+                  onChange={(e) => setQuestao(e.target.value)}
+                  className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                />
               </div>
-              
-              <button
+            </div>
+
+            <button
               onClick={handleCreateChallenge}
               className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               Criar
             </button>
-  
-            </div>
           </div>
+        </div>
+        <div>
           <div>
+            <h3 className="text-2xl font-medium leading-6 text-gray-900 mt-10 text-center">
+              Adicionar Aluno
+            </h3>
+            <p className="mt-1 text-lg text-gray-500 text-center">
+              Adicione alunos para os seus cursos
+            </p>
+          </div>
 
-
-            <div>
-              <h3 className="text-2xl font-medium leading-6 text-gray-900 mt-10 text-center">Adicionar Aluno</h3>
-              <p className="mt-1 text-lg text-gray-500 text-center">
-                Adicione alunos para os seus cursos
-              </p>
+          <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="first-name"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Endereço do Aluno
+              </label>
+              <div className="mt-1">
+                <input
+                  onChange={(e) => setStudentAddress(e.target.value)}
+                  className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                />
+              </div>
             </div>
 
-            <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-              <div className="sm:col-span-3">
-                <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
-                  Endereço do Aluno
-                </label>
-                <div className="mt-1">
-                  <input
-                    onChange={(e) => setStudentAddress(e.target.value)}
-
-                    className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  />
-                </div>
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="last-name"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Id do Curso
+              </label>
+              <div className="mt-1">
+                <input
+                  onChange={(e) => setCourseId2(e.target.value)}
+                  className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                />
               </div>
-  
-              <div className="sm:col-span-3">
-                <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
-                  Id do Curso
-                </label>
-                <div className="mt-1">
-                  <input
-                    onChange={(e) => setCourseId2(e.target.value)}
-
-                    className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  />
-                </div>
-              </div>
-              <button
+            </div>
+            <button
               onClick={handleAddStudent}
               className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               Adicionar
             </button>
-  
-            </div>
           </div>
-
-  
         </div>
-  
-      </form>
-    )
-  }
-  
+      </div>
+    </form>
+  );
+}

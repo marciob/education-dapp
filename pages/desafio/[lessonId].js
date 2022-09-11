@@ -1,9 +1,9 @@
 import Image from "next/future/image";
 import Head from "next/head";
 import { useState, useEffect } from "react";
-import {ethers} from 'ethers'
-import Totem from '../utils/Totem.json'
-import axios from 'axios'
+import { ethers } from "ethers";
+import Totem from "../utils/Totem.json";
+import axios from "axios";
 
 import { useRouter } from "next/router";
 
@@ -28,33 +28,31 @@ function LinkIcon(props) {
 
 export default function Desafio() {
   // pegar info de uma aula e pergunta da aula
-  const [lesson, setLesson] = useState('');
-  const [input,setInput] = useState('')
+  const [lesson, setLesson] = useState("");
+  const [input, setInput] = useState("");
   const router = useRouter();
-  const { lessonId } = router.query
-  const [account,setAccount] = useState()
-  const [totemContract,setTotemContract] = useState()
+  const { lessonId } = router.query;
+  const [account, setAccount] = useState();
+  const [totemContract, setTotemContract] = useState();
 
-  const totemContractAddress="0xDD1C101bE86b43E5a8841B18F4028d2A3E2Bb6B5"
-  const totemContractAbi= Totem.abi
+  const totemContractAddress = "0xDD1C101bE86b43E5a8841B18F4028d2A3E2Bb6B5";
+  const totemContractAbi = Totem.abi;
   // console.log('router query', router.query)
 
   useEffect(() => {
-    if(!lessonId) {
+    if (!lessonId) {
       return;
     }
-    console.log("lessonId",lessonId)
+    console.log("lessonId", lessonId);
     fetchAnswers();
-    getWallet()
-    
-    
+    getWallet();
   }, [lessonId]);
-
 
   const fetchAnswers = async () => {
     // Construct query for subgraph
-    console.log("fetch Answer")
-    const subgraphURL= "https://api.thegraph.com/subgraphs/name/danilowhk/totem-subgraph-polygon3"
+    console.log("fetch Answer");
+    const subgraphURL =
+      "https://api.thegraph.com/subgraphs/name/danilowhk/totem-subgraph-polygon3";
     const postData = {
       query: `
       {
@@ -71,63 +69,57 @@ export default function Desafio() {
       
       }
       `,
-    }
+    };
     // Fetch data
     try {
-      const result = await axios.post(subgraphURL, postData)
+      const result = await axios.post(subgraphURL, postData);
       // setQuestion(result.data.data.parentMessageAddeds[0])
       // setAnswers(result.data.data.messageAddeds)
       // console.log("result",result)
-      console.log("result.data",result.data.data)
-      console.log("result.data.challengeAddeds",result.data.data.challengeAddeds)
-      setLesson(result.data.data.challengeAddeds[0])
+      console.log("result.data", result.data.data);
+      console.log(
+        "result.data.challengeAddeds",
+        result.data.data.challengeAddeds
+      );
+      setLesson(result.data.data.challengeAddeds[0]);
       // setAnswers(result.data.data.messageAddeds)
     } catch (err) {
-      console.log('Error fetching subgraph data: ', err)
+      console.log("Error fetching subgraph data: ", err);
     }
-  }
-
-
-
-
-
-
-
+  };
 
   const getWallet = async () => {
-    if(window.ethereum){
+    if (window.ethereum) {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       await provider.send("eth_requestAccounts", []);
       const signer = provider.getSigner();
       // console.log("account",signer)
       // console.log('totemAbi',totemContractAbi)
       // console.log('Contract Address',totemContractAddress )
-      setAccount(signer)
-      const totemContractTemp = new ethers.Contract(totemContractAddress,totemContractAbi,signer)
+      setAccount(signer);
+      const totemContractTemp = new ethers.Contract(
+        totemContractAddress,
+        totemContractAbi,
+        signer
+      );
       // console.log("Contract",totemContractTemp )
       setTotemContract(totemContractTemp);
-
-
     }
-  }
-
-
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    console.log(input)
+    console.log(input);
     const uri = await passMyData(input);
-    const courseId = "1"
-    const challengeId = lessonId
-    console.log('uri', uri)
+    const courseId = "1";
+    const challengeId = lessonId;
+    console.log("uri", uri);
 
-
-    console.log(totemContract)
-    const tx = await totemContract.submitChallenge( uri,courseId,challengeId )
-    console.log(tx)
-  }
-
+    console.log(totemContract);
+    const tx = await totemContract.submitChallenge(uri, courseId, challengeId);
+    console.log(tx);
+  };
 
   return (
     <>
@@ -138,9 +130,7 @@ export default function Desafio() {
             {/* <p>Git 101</p> */}
           </div>
           <div className="flex items-center  justify-center mb-10">
-          <a className="w-[40%]" href={lesson.uri}>
-            <video src={lesson.uri} className="bg-black  mt-3 "></video>
-          </a>
+            <video src={lesson.uri} className="bg-black w-[40%] mt-3 "></video>
           </div>
           {/* <p className="max-w-lg m-auto pb-8">Introducao </p> */}
           <div>
@@ -152,15 +142,25 @@ export default function Desafio() {
           <div className="flex flex-col items-center justify-center">
             <p className="mb-3.5 font-bold">Questao:</p>
             <p className="mb-3.5">{lesson.question}</p>
-            <input className="border-2 border-black mb-3.5 p-10" onChange={(e) => setInput(e.target.value)} ></input>
+            <input
+              className="border-2 border-black mb-3.5 p-10"
+              onChange={(e) => setInput(e.target.value)}
+            ></input>
           </div>
           <div className="flex flex-col items-center justify-center">
             <p className="mb-3.5">Group Id</p>
-            <input className="border-2 border-black mb-3.5 p-3" onChange={(e) => setInput(e.target.value)} ></input>
+            <input
+              className="border-2 border-black mb-3.5 p-3"
+              onChange={(e) => setInput(e.target.value)}
+            ></input>
           </div>
-          
-          
-          <button onClick={handleSubmit} className='mb-3.5 w-full max-w-lg m-auto bg-lime-500 rounded-2xl'>Enviar</button>
+
+          <button
+            onClick={handleSubmit}
+            className="mb-3.5 w-full max-w-lg m-auto bg-lime-500 rounded-2xl"
+          >
+            Enviar
+          </button>
         </div>
       </div>
     </>
