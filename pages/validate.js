@@ -119,7 +119,7 @@ export default function Validate() {
 
   return (
     <div className="flex items-center justify-center">
-        <div className='p-10 grid grid-cols-3 items-center '>
+        <div className='p-10 grid grid-cols-3 items-center'>
             <CardResposta />
             <CardResposta />
             <CardResposta />

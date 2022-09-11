@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    
+}
+
+.content {
+    color: white;
+    min-width: 450px;
+    margin: 0 auto;
+    background: gray;
+    padding:10rem 2rem;
+    border-radius: 10px;
+    
+}
+
+.content button {
+    width: 100%;
+    border-radius: 35px;
+    
+    color: black;
+    font-weight: bold;
+    
+}

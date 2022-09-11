@@ -3,6 +3,7 @@
 import { useEffect } from "react"
 import { CardResposta } from "../components/CardRespostas"
 import axios from "axios"
+import { ClaimReward } from "../components/ClaimReward/index"
 
 
 export default function Validate() {
@@ -45,17 +46,6 @@ export default function Validate() {
   }, [])
 
   return (
-    <div className="flex items-center justify-center">
-        <div className='p-10 grid grid-cols-3 items-center'>
-            <CardResposta />
-            <CardResposta />
-            <CardResposta />
-            <CardResposta />
-            <CardResposta />
-            <CardResposta />
-
-        </div>
-    </div>
-    
+     <ClaimReward />
   )
 }
