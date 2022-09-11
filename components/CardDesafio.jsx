@@ -18,8 +18,11 @@ export function CardDesafio(props) {
       <div className='ml-8 mb-8 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]'>
           {/* <div>Title</div> */}
           <div>
-                  <div className="flex h-[350px] w-[220px] flex-col items-center justify-between rounded-lg bg-gray-200">
-                  <div className="mt-3">Active</div>
+                  <div className="flex h-[400px] w-[350px] flex-col items-center justify-between rounded-lg bg-gray-200">
+                  <div className="mt-3 flex items-center gap-2">
+                    Active
+                    <div className='circle-active'></div>
+                  </div>
                   <div className="text-2xl text-center">{props.lesson.name}</div>
                   <div className="flex flex-col items-center">
                       <div className="flex flex-col items-center mb-5 px-4">
