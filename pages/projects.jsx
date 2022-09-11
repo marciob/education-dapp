@@ -14,6 +14,21 @@ import axios from "axios";
 // import { useWallet } from '../context2/ConnectWalletContext'
 import { useIdentityContext } from "../context/IdentityContextProvider";
 
+const projects = [
+  {
+    name: "Planetaria",
+    teacher: "Danilo Kim",
+    description:
+      "Creating technology to empower civilians to explore space on their own terms.",
+  },
+  {
+    name: "Animaginary",
+    teacher: "Pedro Cobos",
+    description:
+      "High performance web animation library, hand-written in optimized WASM.",
+  },
+];
+
 function LinkIcon(props) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
