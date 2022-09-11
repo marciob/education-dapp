@@ -1,31 +1,16 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Totem - Learn-to-Earn dApp
 
-![Project Preview](./watchme.png)
+Essa é uma submissão do Hackathon da EthereumSP promovido pela Ethereum Brasil.
 
-## Available Scripts
+## Motivação
 
-In the project directory, you can run:
+Conectados pela web3 e movidos pelo espírito colaborativo inerente ao ecossistema, o Projeto Totem nasce com o propósito de distribuir valores. Essa missão de compartilhar ativos vai muito além de recursos financeiros, trata-se de levar conhecimento àqueles que não tem o privilégio de ter acesso à educação de qualidade e consolidar uma boa capacitação profissional. Para mitigar as desigualdades decorrentes desses fatores, o Totem propõe trazer novos contornos a educação através da blockchain.
 
-### `yarn install`
+## O que é 
 
-Instal All dependencies in this project
+O Totem é uma plataforma Learn to Earn que, por meio do ensino à distância, foi construída para estimular a difusão de conhecimento, através da disponibilização de incentivos aos alunos, consistente na transferência de tokens, os quais são conferidos em decorrência de determinados critérios, como avanço nos desafios propostos.
+A compensação monetária, via tokens, é um mecanismo potente para a manutenção do interesse dos estudantes em prosseguir nos cursos e concluir sua formação, evitando-se, com isso, a evasão educacional.
 
-### `yarn dev`
+## Tech stack
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### Link
-
-Next js: https://nextjs.org/docs/getting-started
-TailwindCSS: https://tailwindcss.com/docs/guides/nextjs
-Themoviedb: https://www.themoviedb.org/
-Themoviedb Docs: https://developers.themoviedb.org/3
-font family: https://fonts.google.com/specimen/Bebas+Neue
-illustration: https://undraw.co/search
-
-### Video Tutorial
-
-You can see my youtube video for this project in [here](https://youtu.be/jfNS3254gS8)
-
-Extra line
