@@ -38,6 +38,38 @@ function LinkIcon(props) {
 export default function Projects() {
 
   const [courses, setCourses] = useState(projects);
+  const [courses2, setCourse2] = useState(projects);
+
+  const fetchAnswers = async () => {
+    // Construct query for subgraph
+    const subgraphURL= "https://api.thegraph.com/subgraphs/name/danilowhk/totem-subgraph-polygon2"
+    const postData = {
+      query: `
+      {
+        courseAddeds(first: 5) {
+          id
+          name
+          courseId
+          courseOwner
+          totalStaked
+          stakedTokenAddress
+        }
+      
+      }
+      `,
+    }
+    // Fetch data
+    try {
+      const result = await axios.post(subgraphURL, postData)
+ 
+      console.log("result.data",result.data.data)
+      console.log("result.data.courseAddeds",result.data.data.courseAddeds)
+      setCourse2(result.data.data.courseAddeds)
+      // setAnswers(result.data.data.messageAddeds)
+    } catch (err) {
+      console.log('Error fetching subgraph data: ', err)
+    }
+  }
 
   const url = "https://ubo-dapp-api.herokuapp.com/api/courses/";
 
@@ -50,6 +82,7 @@ export default function Projects() {
         console.log(data);
         setCourses(data);
       });
+      fetchAnswers()
   }, []);
 
   const wallet = useIdentityContext();
@@ -66,38 +99,40 @@ export default function Projects() {
         <title>Totem - projetos</title>
         <meta
           name="description"
-          content="Things I’ve made trying to put my dent in the universe."
         />
       </Head>
       <SimpleLayout
-        title="Things I’ve made trying to put my dent in the universe."
-        intro="I’ve worked on tons of little projects over the years but these are the ones that I’m most proud of. Many of them are open-source, so if you see something that piques your interest, check out the code and contribute if you have ideas for how it can be improved."
+        title="Cursos ativos"
+        intro="Abaixo você verá a lista dos Cursos em andamento!"
       >
         <ul
           role="list"
-          className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-1 gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {courses.map((project) => (
+          {courses2.map((project) => (
             // <Link href={`/`} passHref={true} key={project.name}>
             <Link href={`/desafios/${project.id}`} key={project.name}>
             <div className="bg-gray-300 cursor-pointer p-2 rounded-xl py-5" >
               <Card as="li">
                 <div className="relative z-10 flex h-12 w-12 block items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-                  {/* <Image
-                      src={project.logo}
+                  <Image
+                      src={logoPlanetaria}
                       alt=""
                       className="h-8 w-8"
                       unoptimized
-                    /> */}
+                    />
                 </div>
                 <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
                   <span>{project.name}</span>
                 </h2>
                 <Card.Description>{project.description}</Card.Description>
-                <p className="relative z-10 mt-3 flex flex-col text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200 text-center">
-                  {/* <LinkIcon className="h-6 w-6 flex-none" /> */}
+                <p className="relative z-10 mt-3 flex flex-col text-sm font-medium text-zinc-800 transition group-hover:text-teal-500 dark:text-zinc-200 text-center">
+                  <span>Total Staked</span>
+                  <span className="ml-2 truncate overflow-hidden">{project.totalStaked}</span>
+                </p>
+                <p className="relative z-10 mt-3 flex flex-col text-sm font-medium text-zinc-800 transition group-hover:text-teal-500 dark:text-zinc-200 text-center">
                   <span>Instrutor</span>
-                  <span className="ml-2">{project.teacher}</span>
+                  <span className="ml-2 truncate overflow-hidden">{project.courseOwner}</span>
                 </p>
               </Card>
             </div>
