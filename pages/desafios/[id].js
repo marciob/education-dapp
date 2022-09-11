@@ -1,17 +1,13 @@
 import Image from "next/future/image";
 import Head from "next/head";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
-import { Card } from "../../components/Card";
-import { SimpleLayout } from "../../components/SimpleLayout";
-import logoAnimaginary from "../../images/logos/animaginary.svg";
-import logoCosmos from "../../images/logos/cosmos.svg";
-import logoHelioStream from "../../images/logos/helio-stream.svg";
-import logoOpenShuttle from "../../images/logos/open-shuttle.svg";
 import logoPlanetaria from "../../images/logos/planetaria.svg";
 import Link from "next/link";
 import { CardDesafio } from "../../components/CardDesafio";
 import { useRouter } from "next/router";
+
 const lessonsInitial = [
   {
     name: "Planetaria",
@@ -35,6 +31,7 @@ function LinkIcon(props) {
 
 export default function Desafios() {
   const [lessons, setLessons] = useState(lessonsInitial);
+  const [challenges,setChallenges] = useState([]);
   const router = useRouter();
   const { id } = router.query
 
@@ -47,28 +44,64 @@ export default function Desafios() {
 
 
   useEffect(() => {
-    fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setLessons(data);
-      });
+    // fetch(url)
+    //   .then((response) => {
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     console.log(data);
+    //     setLessons(data);
+    //   });
+    console.log("id", id)
+    fetchAnswers()
   }, []);
+
+  const fetchAnswers = async () => {
+    // Construct query for subgraph
+    const subgraphURL= "https://api.thegraph.com/subgraphs/name/danilowhk/totem-subgraph-polygon2"
+    console.log("Fetch Called!")
+    const postData = {
+      query: `
+      {
+        challengeAddeds(
+          first: 100
+          where: {courseId: ${id}}
+          ) {
+          id
+          challengeId
+          challengeReward
+        }
+      
+      }
+      `,
+    }
+    // Fetch data
+    try {
+      const result = await axios.post(subgraphURL, postData)
+      console.log("result", result)
+      console.log("result.data",result.data.data)
+      console.log("result.data.challengeAddeds",result.data.data.challengeAddeds)
+      setChallenges(result.data.data.challengeAddeds)
+    } catch (err) {
+      console.log('Error fetching subgraph data: ', err)
+    }
+  }
 
   return (
     <>
       <div className="flex items-center justify-center">
+      {/* <h1 className="text-center text-2xl font-bold mt-10">{challenges.length >1 ? "Veja os Desafios que você pode Clamar/Claim": "Este curso não tem nenhum desafio disponível"} </h1> */}
+
         <div className="p-10 grid grid-cols-3 items-center">
+
         
-        {lessons.map((lesson) => (
+        {challenges.map((lesson) => (
           <div className="cursor-pointer" key={lesson.id}>
             <CardDesafio lesson={lesson} courseId={id}/>
           </div>
         ))}
         </div>
-
+        
       </div>
     </>
   );
