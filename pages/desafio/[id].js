@@ -1,51 +1,20 @@
-import Image from 'next/future/image'
-import Head from 'next/head'
+import Image from "next/future/image";
+import Head from "next/head";
+import { useState, useEffect } from "react";
 
-import { Card } from '../../components/Card'
-import { SimpleLayout } from '../../components/SimpleLayout'
-import logoAnimaginary from '../../images/logos/animaginary.svg'
-import logoCosmos from '../../images/logos/cosmos.svg'
-import logoHelioStream from '../../images/logos/helio-stream.svg'
-import logoOpenShuttle from '../../images/logos/open-shuttle.svg'
-import logoPlanetaria from '../../images/logos/planetaria.svg'
-import Link from 'next/link'
-const projects = [
-  {
-    name: 'Planetaria',
-    description:
-      'Creating technology to empower civilians to explore space on their own terms.',
-    link: { href: 'http://planetaria.tech', label: 'planetaria.tech' },
-    logo: logoPlanetaria,
-  },
-  {
-    name: 'Animaginary',
-    description:
-      'High performance web animation library, hand-written in optimized WASM.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoAnimaginary,
-  },
-  {
-    name: 'HelioStream',
-    description:
-      'Real-time video streaming library, optimized for interstellar transmission.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoHelioStream,
-  },
-  {
-    name: 'cosmOS',
-    description:
-      'The operating system that powers our Planetaria space shuttles.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoCosmos,
-  },
-  {
-    name: 'OpenShuttle',
-    description:
-      'The schematics for the first rocket I designed that successfully made it to orbit.',
-    link: { href: '#', label: 'github.com' },
-    logo: logoOpenShuttle,
-  },
-]
+import { Card } from "../../components/Card";
+import { SimpleLayout } from "../../components/SimpleLayout";
+import logoAnimaginary from "../../images/logos/animaginary.svg";
+import logoCosmos from "../../images/logos/cosmos.svg";
+import logoHelioStream from "../../images/logos/helio-stream.svg";
+import logoOpenShuttle from "../../images/logos/open-shuttle.svg";
+import logoPlanetaria from "../../images/logos/planetaria.svg";
+import Link from "next/link";
+const lesson = {
+  name: "Git 101",
+  description: "Introdução ao control de versões",
+  link: "https://youtu.be/USjZcfj8yxE",
+};
 
 function LinkIcon(props) {
   return (
@@ -55,46 +24,64 @@ function LinkIcon(props) {
         fill="currentColor"
       />
     </svg>
-  )
+  );
 }
 
 export default function desafio() {
+  // pegar info de uma aula e pergunta da aula
+  const [lesson, setLesson] = useState();
+
+  let course_id = 3;
+  let lesson_id = 7;
+
+  const url = `https://ubo-dapp-api.herokuapp.com/api/courses/${course_id}/lessons/${lesson_id}`;
+
+  useEffect(() => {
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setProjects(data);
+      });
+  }, []);
+
   return (
     <>
-
-<div className="flex flex-col justify-between px-10  ">
-  <div className="bg-gray-300  w-[100%]">
-    <div className="flex flex-col mt-10">
-      <span>Noame da Aula</span>
-      <span className="text-center"> Historia do Brasil </span>
-    </div>
-    <div className="flex items-center justify-center mb-10">
-    <video className="bg-gray-800 w-[80%] mt-3"></video>
-
-    </div>
-    <span>Lorem Lorem Lorem </span>
-    <div>
-      <span> Instrutor :</span>
-      <span>Vitor Mancio</span>
-    </div>
-  </div>
-  <div className="flex flex-col items-center justify-between">
-     <div className="flex flex-col items-center justify-center">
-       <span>Questao 1</span>
-      <input className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
-    </div>
-    <div className="flex flex-col items-center justify-center">
-       <span>Questao 2</span>
-      <input className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
-    </div>
-    <div className="flex flex-col items-center justify-center">
-       <span>Questao 3</span>
-      <input className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
-    </div>
-    <button className="bg-gray-300 w-[300px] mt-5 p-5 rounded-lg">Enviar</button>
-    </div>
-  </div>
-   
+      <div className="flex flex-col justify-between px-10  ">
+        <div className="bg-gray-300  w-[100%]">
+          <div className="flex flex-col mt-10">
+            <span>Nome da Aula</span>
+            <span className="text-center"> Historia do Brasil </span>
+          </div>
+          <div className="flex items-center justify-center mb-10">
+            <video className="bg-gray-800 w-[80%] mt-3"></video>
+          </div>
+          <span>Lorem Lorem Lorem </span>
+          <div>
+            <span> Instrutor :</span>
+            <span>Vitor Mancio</span>
+          </div>
+        </div>
+        <div className="flex flex-col items-center justify-between">
+          <div className="flex flex-col items-center justify-center">
+            <span>Questao 1</span>
+            <input className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
+          </div>
+          <div className="flex flex-col items-center justify-center">
+            <span>Questao 2</span>
+            <input className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
+          </div>
+          <div className="flex flex-col items-center justify-center">
+            <span>Questao 3</span>
+            <input className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
+          </div>
+          <button className="bg-gray-300 w-[300px] mt-5 p-5 rounded-lg">
+            Enviar
+          </button>
+        </div>
+      </div>
     </>
-  )
+  );
 }
