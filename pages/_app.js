@@ -7,10 +7,8 @@ import { IdentityContextProvider } from '../context/IdentityContextProvider'
 function MyApp({ Component, pageProps }) {
   return (
     <IdentityContextProvider>
-      <Layout>
         <Header />
         <Component {...pageProps} />
-      </Layout>
     </IdentityContextProvider>
   )
 }

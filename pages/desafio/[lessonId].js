@@ -10,6 +10,8 @@ import logoHelioStream from "../../images/logos/helio-stream.svg";
 import logoOpenShuttle from "../../images/logos/open-shuttle.svg";
 import logoPlanetaria from "../../images/logos/planetaria.svg";
 import Link from "next/link";
+import { useRouter } from "next/router";
+
 const lesson = {
   name: "Git 101",
   description: "Introdução ao control de versões",
@@ -27,23 +29,28 @@ function LinkIcon(props) {
   );
 }
 
-export default function desafio() {
+export default function Desafio() {
   // pegar info de uma aula e pergunta da aula
-  const [lesson, setLesson] = useState();
+  const [lesson, setLesson] = useState('');
+  const router = useRouter();
+  const { lessonId } = router.query
+  // console.log('router query', router.query)
 
   let course_id = 3;
-  let lesson_id = 7;
+  let lesson_id = lessonId;
 
-  const url = `https://ubo-dapp-api.herokuapp.com/api/courses/${course_id}/lessons/${lesson_id}`;
 
   useEffect(() => {
+    const url = `https://ubo-dapp-api.herokuapp.com/api/courses/${course_id}/lessons/${lesson_id}`;
+
     fetch(url)
       .then((response) => {
+        console.log("response", response)
         return response.json();
       })
       .then((data) => {
         console.log(data);
-        setProjects(data);
+        setLesson(data);
       });
   }, []);
 
@@ -69,17 +76,6 @@ export default function desafio() {
             <span>Questao 1</span>
             <input className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
           </div>
-          <div className="flex flex-col items-center justify-center">
-            <span>Questao 2</span>
-            <input className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
-          </div>
-          <div className="flex flex-col items-center justify-center">
-            <span>Questao 3</span>
-            <input className="border-2 border-black w-[500px] h-[150px] rounded-lg"></input>
-          </div>
-          <button className="bg-gray-300 w-[300px] mt-5 p-5 rounded-lg">
-            Enviar
-          </button>
         </div>
       </div>
     </>

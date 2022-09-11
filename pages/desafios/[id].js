@@ -11,41 +11,14 @@ import logoOpenShuttle from "../../images/logos/open-shuttle.svg";
 import logoPlanetaria from "../../images/logos/planetaria.svg";
 import Link from "next/link";
 import { CardDesafio } from "../../components/CardDesafio";
-const lessons = [
+import { useRouter } from "next/router";
+const lessonsInitial = [
   {
     name: "Planetaria",
     description:
       "Creating technology to empower civilians to explore space on their own terms.",
     link: { href: "http://planetaria.tech", label: "planetaria.tech" },
     logo: logoPlanetaria,
-  },
-  {
-    name: "Animaginary",
-    description:
-      "High performance web animation library, hand-written in optimized WASM.",
-    link: { href: "#", label: "github.com" },
-    logo: logoAnimaginary,
-  },
-  {
-    name: "HelioStream",
-    description:
-      "Real-time video streaming library, optimized for interstellar transmission.",
-    link: { href: "#", label: "github.com" },
-    logo: logoHelioStream,
-  },
-  {
-    name: "cosmOS",
-    description:
-      "The operating system that powers our Planetaria space shuttles.",
-    link: { href: "#", label: "github.com" },
-    logo: logoCosmos,
-  },
-  {
-    name: "OpenShuttle",
-    description:
-      "The schematics for the first rocket I designed that successfully made it to orbit.",
-    link: { href: "#", label: "github.com" },
-    logo: logoOpenShuttle,
   },
 ];
 
@@ -61,11 +34,14 @@ function LinkIcon(props) {
 }
 
 export default function Desafios() {
+  const [lessons, setLessons] = useState(lessonsInitial);
+  const router = useRouter();
+  const { id } = router.query
 
-  const [lessons, setLessons] = useState();
+
 
   // hardcoded course id
-  let course_id = 3;
+  let course_id = id;
 
   const url = `https://ubo-dapp-api.herokuapp.com/api/courses/${course_id}/lessons`;
 
@@ -85,12 +61,12 @@ export default function Desafios() {
     <>
       <div className="flex items-center justify-center">
         <div className="p-10 grid grid-cols-3 items-center">
-          <CardDesafio />
-          <CardDesafio />
-          <CardDesafio />
-          <CardDesafio />
-          <CardDesafio />
-          <CardDesafio />
+        
+        {lessons.map((lesson) => (
+          <div className="cursor-pointer" key={lesson.id}>
+            <CardDesafio lesson={lesson} courseId={id}/>
+          </div>
+        ))}
         </div>
 
       </div>

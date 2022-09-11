@@ -20,13 +20,8 @@ const projects = [
     teacher: "Danilo Kim",
     description:
       "Creating technology to empower civilians to explore space on their own terms.",
-  },
-  {
-    name: "Animaginary",
-    teacher: "Pedro Cobos",
-    description:
-      "High performance web animation library, hand-written in optimized WASM.",
-  },
+  }
+
 ];
 
 function LinkIcon(props) {
@@ -42,14 +37,12 @@ function LinkIcon(props) {
 
 export default function Projects() {
 
-  const [courses, setCourses] = useState();
+  const [courses, setCourses] = useState(projects);
 
   const url = "https://ubo-dapp-api.herokuapp.com/api/courses/";
 
   useEffect(() => {
-    fetch(url)
-
-      .then((response) => {
+    fetch(url).then((response) => {
         console.log('response', response)
         return response.json();
       })
@@ -84,9 +77,10 @@ export default function Projects() {
           role="list"
           className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {projects.map((project) => (
+          {courses.map((project) => (
             // <Link href={`/`} passHref={true} key={project.name}>
-            <div className="bg-gray-300 cursor-pointer p-2 rounded-xl py-5" key={project.name}>
+            <Link href={`/desafios/${project.id}`} key={project.name}>
+            <div className="bg-gray-300 cursor-pointer p-2 rounded-xl py-5" >
               <Card as="li">
                 <div className="relative z-10 flex h-12 w-12 block items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
                   {/* <Image
@@ -107,11 +101,11 @@ export default function Projects() {
                 </p>
               </Card>
             </div>
-            // </Link>
+           </Link>
           ))}
         </ul>
       </SimpleLayout>
-      <button onClick={handleCheckWallet}>Check Wallet</button>
+      {/* <button onClick={handleCheckWallet}>Check Wallet</button> */}
     </>
   );
 }
