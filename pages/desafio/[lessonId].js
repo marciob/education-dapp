@@ -1,8 +1,12 @@
 import Image from "next/future/image";
 import Head from "next/head";
 import { useState, useEffect } from "react";
+import {ethers} from 'ethers'
+import Totem from '../utils/Totem.json'
 
 import { useRouter } from "next/router";
+
+import { storeFiles, makeFileObjects, passMyData } from "../../storing-data";
 
 const lesson = {
   name: "Git 101",
@@ -27,6 +31,11 @@ export default function Desafio() {
   const [input,setInput] = useState('')
   const router = useRouter();
   const { lessonId } = router.query
+  const [account,setAccount] = useState()
+  const [totemContract,setTotemContract] = useState()
+
+  const totemContractAddress="0xc57B6B0efaf07b546c9AeE8AF8cA984660167258"
+  const totemContractAbi= Totem.abi
   // console.log('router query', router.query)
 
   let course_id = 3;
@@ -35,25 +44,66 @@ export default function Desafio() {
 
   useEffect(() => {
     if(lessonId){
-      const url = `https://ubo-dapp-api.herokuapp.com/api/courses/${course_id}/lessons/${lesson_id}`;
+    const url = `https://ubo-dapp-api.herokuapp.com/api/courses/${course_id}/lessons/${lesson_id}`;
+      try{
+        fetch(url)
+        .then((response) => {
+          console.log("response", response)
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setLesson(data);
+        });
+  
 
-    fetch(url)
-      .then((response) => {
-        console.log("response", response)
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setLesson(data);
-      });
+      } catch(e){
+        console.log(e)
+      }
 
     }
+    getWallet()
     
   }, []);
 
-  const handleSubmit =() => {
-    console.log(input)
+
+
+
+
+  const getWallet = async () => {
+    if(window.ethereum){
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
+      const signer = provider.getSigner();
+      console.log("account",signer)
+      console.log('totemAbi',totemContractAbi)
+      console.log('Contract Address',totemContractAddress )
+      setAccount(signer)
+      const totemContractTemp = new ethers.Contract(totemContractAddress,totemContractAbi,signer)
+      console.log("Contract",totemContractTemp )
+      setTotemContract(totemContractTemp);
+
+
+    }
   }
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    console.log(input)
+    const uri = await passMyData(input);
+    const courseId = "1"
+    const challengeId = lessonId
+    console.log('uri', uri)
+
+
+    console.log(totemContract)
+    const tx = await totemContract.submitChallenge( uri,courseId,challengeId )
+    console.log(tx)
+  }
+
 
   return (
     <>
@@ -75,8 +125,14 @@ export default function Desafio() {
         <div className="flex flex-col items-center justify-between">
           <div className="flex flex-col items-center justify-center">
             <p className="mb-3.5">Questao 1:</p>
-            <input className="border-2 border-black mb-3.5 w-full" onChange={(e) => setInput(e.target.value)} ></input>
+            <input className="border-2 border-black mb-3.5 p-10" onChange={(e) => setInput(e.target.value)} ></input>
           </div>
+          <div className="flex flex-col items-center justify-center">
+            <p className="mb-3.5">Group Id</p>
+            <input className="border-2 border-black mb-3.5 p-3" onChange={(e) => setInput(e.target.value)} ></input>
+          </div>
+          
+          
           <button onClick={handleSubmit} className='mb-3.5 w-full max-w-lg m-auto bg-lime-500 rounded-2xl'>Enviar</button>
         </div>
       </div>
