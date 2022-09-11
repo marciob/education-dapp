@@ -9,7 +9,7 @@ export default function CreateProject() {
   const [ownerAddress,setOwnerAddress] = useState()
   const [tokenAddress, setTokenAddress] = useState()
   const [stakeAmount, setStakeAmount] = useState()
-  const totemContractAddress="0xc57B6B0efaf07b546c9AeE8AF8cA984660167258"
+  const totemContractAddress="0xDD1C101bE86b43E5a8841B18F4028d2A3E2Bb6B5"
   const totemContractAbi= Totem.abi
 
   const getWallet = async () => {

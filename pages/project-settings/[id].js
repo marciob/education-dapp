@@ -11,7 +11,7 @@ export default function ProjectSettings() {
   const [studentAddress,setStudentAddress] = useState()
   const [courseId2, setCourseId2] = useState()
 
-  const totemContractAddress="0xc57B6B0efaf07b546c9AeE8AF8cA984660167258"
+  const totemContractAddress="0xDD1C101bE86b43E5a8841B18F4028d2A3E2Bb6B5"
   const totemContractAbi= Totem.abi
 
   const getWallet = async () => {
