@@ -1,0 +1,22 @@
+.container {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 4rem;
+
+    max-width: 1200px;
+    
+    
+    margin: 10rem auto;
+    padding-inline: 3rem;
+
+    
+    p {
+        color: black;
+        font-size: 1rem;
+        text-align: center;
+        padding-bottom: 2rem;
+        
+    }
+}

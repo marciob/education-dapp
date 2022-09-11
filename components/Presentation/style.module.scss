@@ -1,0 +1,37 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    padding-inline: 3rem;
+    margin: 0 auto;
+    
+}
+
+.content {
+    background-image: url('../../public/penas.png');
+    height: 100vh;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 2rem;
+
+    p {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    column-gap: 0.7rem;
+}
