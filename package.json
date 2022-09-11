@@ -14,13 +14,15 @@
     "@web-std/blob": "^3.0.4",
     "axios": "^0.27.2",
     "clsx": "^1.2.1",
+    "ethers": "^5.7.0",
     "next": "12.3.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "saas": "^1.0.0",
     "sass": "^1.54.9",
     "web3": "^1.7.5",
-    "web3.storage": "^4.4.0"
+    "web3.storage": "^4.4.0",
+    "whatwg-url": "^11.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.2",
