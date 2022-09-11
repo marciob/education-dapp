@@ -7,9 +7,13 @@ export default function ProjectSettings() {
   const [totemContract,setTotemContract] = useState()
   const [courseId,setCourseId] = useState()
   const [challengeReward,setChallengeReward] =useState()
+  const [uri,setUri] = useState()
+  const [questao,setQuestao]= useState()
+  const [challengeName,setChallengeName] = useState()
 
   const [studentAddress,setStudentAddress] = useState()
   const [courseId2, setCourseId2] = useState()
+
 
   const totemContractAddress="0xDD1C101bE86b43E5a8841B18F4028d2A3E2Bb6B5"
   const totemContractAbi= Totem.abi
@@ -38,7 +42,7 @@ export default function ProjectSettings() {
   const handleCreateChallenge = async (e) => {
     e.preventDefault()
     console.log(totemContract)
-    const tx = await totemContract.addChallenge(courseId,challengeReward)
+    const tx = await totemContract.addChallenge(courseId,challengeReward,challengeName,questao,uri)
     console.log(tx)
   }
 
@@ -72,6 +76,17 @@ export default function ProjectSettings() {
   
             </div>
             <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div className="sm:col-span-3">
+                <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                  Nome do Desafio
+                </label>
+                <div className="mt-1">
+                  <input
+                    onChange={(e) => setChallengeName(e.target.value)}
+                    className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  />
+                </div>
+              </div>
               <div className="sm:col-span-3">
                 <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
                   Id do Curso
@@ -101,7 +116,7 @@ export default function ProjectSettings() {
                 </label>
                 <div className="mt-1">
                   <input
-                    // onChange={(e) => setCourseId(e.target.value)}
+                    onChange={(e) => setUri(e.target.value)}
                     className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                   />
                 </div>
@@ -113,7 +128,7 @@ export default function ProjectSettings() {
                 </label>
                 <div className="mt-1">
                   <input
-                    // onChange={(e) => setChallengeReward(e.target.value)}
+                    onChange={(e) => setQuestao(e.target.value)}
                     className="block w-full rounded-md border-gray-400 border-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                   />
                 </div>
